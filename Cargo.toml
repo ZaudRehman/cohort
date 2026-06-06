@@ -1,0 +1,37 @@
+[package]
+name = "cohort"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Zaud Rehman <zaudrehman@gmail.com>"]
+license = "MIT OR Apache-2.0"
+description = "Structured concurrency for async Rust with deterministic task lifetime and explicit cancellation semantics"
+repository = "https://github.com/ZaudRehman/cohort"
+homepage = "https://github.com/ZaudRehman/cohort"
+documentation = "https://docs.rs/cohort"
+readme = "README.md"
+keywords = ["async", "structured-concurrency", "tokio", "cancellation", "task"]
+categories = ["asynchronous", "concurrency"]
+exclude = ["tests/", "benches/", "examples/"]
+
+[features]
+default = ["tokio", "time"]
+
+tokio = ["dep:tokio", "dep:futures"]
+time = ["tokio", "tokio/time"]
+tracing = ["dep:tracing"]
+loom-tests = []
+
+[dependencies]
+thiserror = "1"
+futures = { version = "0.3", optional = true }
+tokio = { version = "1.37", features = ["macros", "rt", "rt-multi-thread", "sync"], optional = true }
+tracing = { version = "0.1", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.37", features = ["macros", "rt", "rt-multi-thread", "sync", "time"] }
+futures = "0.3"
+
+[package.metadata.docs.rs]
+features = ["tokio", "time", "tracing"]
+rustdoc-args = ["--cfg", "docsrs"]
